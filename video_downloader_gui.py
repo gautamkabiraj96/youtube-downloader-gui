@@ -107,7 +107,7 @@ quality_label = tk.Label(
 quality_label.grid(row=1, column=0, padx=5, pady=5, sticky='w')
 
 quality_combobox = Combobox(main_frame, textvariable=quality_var, values=[
-                            '360', '480', '720', '1080', '1440'], font=font)
+                            '360', '480', '720', '1080', '1440', '2160'], font=font)
 quality_combobox.grid(row=1, column=1, padx=5, pady=5)
 
 download_button = tk.Button(main_frame, text="Download Video",
