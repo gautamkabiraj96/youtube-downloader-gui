@@ -5,6 +5,10 @@ from tkinter.ttk import Combobox
 import traceback
 import youtube_dl
 import ffmpeg
+import base64
+
+# Import the base64_image variable from image_data.py
+from image_data import base64_image
 
 
 def show_about_info():
@@ -70,8 +74,19 @@ font = ('Arial', 12)
 logo_frame = tk.Frame(root, bg='#f0f0f0')
 logo_frame.pack(pady=10)
 
-# Replace 'your_logo.png' with the path to your logo image
-logo_img = tk.PhotoImage(file='images/download.png')
+# Create a byte stream from the base64 string
+image_data = base64_image.encode()
+
+# Save the byte stream as an image file
+with open("temp_image.png", "wb") as image_file:
+    image_file.write(base64.b64decode(image_data))
+
+# Load the image from the temporary image file
+logo_img = tk.PhotoImage(file="temp_image.png")
+
+# Remove the temporary image file
+os.remove("temp_image.png")
+
 logo_label = tk.Label(logo_frame, image=logo_img, bg='#f0f0f0')
 logo_label.pack()
 
@@ -118,3 +133,16 @@ file_menu.add_command(label="About", command=show_about_info)
 # merge_button.pack()
 
 root.mainloop()
+
+# Create a byte stream from the base64 string
+image_data = base64_image.encode()
+
+# Save the byte stream as an image file
+with open("temp_image.png", "wb") as image_file:
+    image_file.write(base64.b64decode(image_data))
+
+# Load the image from the temporary image file
+logo_img = tk.PhotoImage(file="temp_image.png")
+
+# Remove the temporary image file
+os.remove("temp_image.png")
