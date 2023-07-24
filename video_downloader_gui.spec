@@ -8,7 +8,7 @@ a = Analysis(
     ['video_downloader_gui.py'],
     pathex=[],
     binaries=[],
-    datas=[('images', 'images')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
