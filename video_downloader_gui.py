@@ -18,6 +18,12 @@ def download_progress_hook(d):
     if d['status'] == 'downloading':
         output_label.config(text="Downloading, please wait.")
         root.update()
+        # Disable the button while downloading
+        download_button.config(state=tk.DISABLED)
+    elif d['status'] == 'finished':
+        output_label.config(text="")
+        # Enable the button after download is completed
+        download_button.config(state=tk.NORMAL)
 
 
 def download_video():
@@ -35,6 +41,9 @@ def download_video():
             'progress_hooks': [download_progress_hook],
         }
 
+        # Disable the button immediately after the user chooses a location
+        download_button.config(state=tk.DISABLED)
+
         try:
             with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
@@ -43,6 +52,8 @@ def download_video():
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
         finally:
             output_label.config(text="")
+            # Enable the button after download is completed or if there is an error
+            download_button.config(state=tk.NORMAL)
 
     # Create a separate thread for downloading
     download_thread = threading.Thread(target=download)
@@ -98,9 +109,9 @@ file_menu = tk.Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="File", menu=file_menu)
 
 # Add "About" option under the "File" menu
-file_menu.add_command(label="About", command=show_about_info)
+file_menu.add_command(label="Help", command=show_help)
 
 # Add "About" option under the "File" menu
-file_menu.add_command(label="Help", command=show_help)
+file_menu.add_command(label="About", command=show_about_info)
 
 root.mainloop()
